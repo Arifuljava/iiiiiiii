@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_weight="1"
+    app:cardBackgroundColor="#fff"
+    android:layout_marginBottom="20dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    android:onClick="web_Print"
+    app:cardCornerRadius="12dp"
+    android:layout_marginLeft="0dp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+
+    android:layout_height="250dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:foregroundTint="@color/white"
+            android:layout_width="150dp"
+            android:id="@+id/deviceanimation"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="false"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="false"
+            app:lottie_fileName="scaerching.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_below="@id/deviceanimation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="false"
+
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="12dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+
+            android:text="Sync Bluetooth Devices"
+            android:id="@+id/web_print"
+            android:gravity="center_horizontal" />
+        <TextView
+            android:layout_below="@id/web_print"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="false"
+
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="8dp"
+            android:inputType="textImeMultiLine"
+            android:textAlignment="center"
+            android:textColor="#808080"
+
+            android:text="Bluetooth is turn on. We are sync all devices."
+            android:id="@+id/web_print2"
+            android:gravity="center_horizontal" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>
