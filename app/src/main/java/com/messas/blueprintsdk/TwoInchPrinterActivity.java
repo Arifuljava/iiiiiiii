@@ -108,7 +108,7 @@ RelativeLayout printcommand;
             height = intent.getStringExtra("height");
             if (TextUtils.isEmpty(selectcategory))
             {
-                selectcategory = "ESC";
+                selectcategory = "esc";
             }
             else{
                 selectcategory = selectcategory;
@@ -117,7 +117,7 @@ RelativeLayout printcommand;
             //width
             if (TextUtils.isEmpty(wight))
             {
-                wight = "284";
+                wight = "384";
             }
             else{
                 wight = wight;
@@ -251,6 +251,7 @@ RelativeLayout printcommand;
 
 
         ////speed density detect
+/*
 
         firebaseFirestore.collection("DensityAndSpeed")
                 .document("abc@gmail.com")
@@ -280,6 +281,7 @@ RelativeLayout printcommand;
                         }
                     }
                 });
+ */
 
 
         ///////
@@ -352,7 +354,7 @@ RelativeLayout printcommand;
                 } else {
                     if (selectcategory.toString().toLowerCase().toString().equals("cpcl")){
                         Toasty.info(getApplicationContext(),"Bluetooth Device : "+bluename111.getText().toString()+"\n" +
-                                "Mac Address : "+BlueMac,Toasty.LENGTH_SHORT,true).show();
+                                "Mac Address CC: "+BlueMac,Toasty.LENGTH_SHORT,true).show();
                         printImage1(BlueMac);
                     }
                     else if (selectcategory.toString().toLowerCase().toString().equals("esc")){
@@ -451,7 +453,7 @@ RelativeLayout printcommand;
         {
             height=bitmapOrg.getHeight();
         }
-        int width =30;
+        int width =384;
         int R = 0, B = 0, G = 0;
         //int pixles;
         int []pixels = new int[width * height];
@@ -557,9 +559,12 @@ RelativeLayout printcommand;
     OutputStream os = null;
     private void printImage1(String bl) {
         //  final Bitmap bitmap = bitmapdataMe;
-        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.death);
-        float scax=30f /bitmap.getWidth();
-        float scaly= 30f / bitmap.getHeight();
+        String speed = quantityProductPage_speed.getText().toString();
+        String density = progressbarsechk.getText().toString();
+
+        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dolphin);
+        float scax= 384f / bitmap.getWidth();
+        float scaly= 384f / bitmap.getHeight();
         Log.e("dolon",""+bitmap);
         Log.e("zzz",""+bitmap.getWidth());
         Log.e("zzz",""+bitmap.getHeight());
@@ -625,10 +630,10 @@ RelativeLayout printcommand;
                                         public void onFinish() {
                                             try {
                                                 String t_line1 = "! 0 200 200 "+bitmapHeight+" 1 \r\n";//bitmap.getHeight()
-                                                String t_line2 = "pw "+30+"\r\n";
-                                                String t_line3 = "DENSITY 12\r\n";
-                                                String t_line4 = "SPEED 9\r\n";
-                                                String t_line5 = "CG "+30/8+" "+bitmapHeight+" 0 0 ";
+                                                String t_line2 = "pw "+384+"\r\n";
+                                                String t_line3 = "DENSITY "+density+"\r\n";
+                                                String t_line4 = "SPEED "+speed+"\r\n";
+                                                String t_line5 = "CG "+384/8+" "+bitmapHeight+" 0 0 ";
                                                 String t_line6 ="PR 0\r\n";
                                                 String t_line7= "FORM\r\n";
                                                 String t_line8 = "PRINT\r\n";
@@ -673,7 +678,9 @@ RelativeLayout printcommand;
                                                             Store_Speed();
                                                             print_flag++;
                                                         }
-                                                        else{}
+                                                        else{
+                                                            Store_Speed();
+                                                        }
                                                         Log.e("Ariful7","Go to print");
 
                                                     }catch (Exception e) {
@@ -720,7 +727,7 @@ RelativeLayout printcommand;
     private void printImage2(String bl) {
         //  final Bitmap bitmap = bitmapdataMe;
 
-        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.death);
+        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dolphin);
         float scax=384f /bitmap.getWidth();
         float scaly=384f / bitmap.getHeight();
         Log.e("dolon",""+bitmap);
@@ -792,8 +799,8 @@ RelativeLayout printcommand;
 
 
                                                 int StartInt=0;
-                                                int PrintSpeedNow=3;
-                                                int PrintDensityNow=15;
+                                                int PrintSpeedNow=Integer.parseInt(quantityProductPage_speed.getText().toString());
+                                                int PrintDensityNow=Integer.parseInt(progressbarsechk.getText().toString());
                                                 int PrintPaperTypeNow=0;
                                                 StartInt=0x1d;
                                                 //Gray_Arraylist.add((byte)StartInt);
@@ -908,7 +915,9 @@ RelativeLayout printcommand;
                                                             Store_Speed();
                                                             print_flag++;
                                                         }
-                                                        else{}
+                                                        else{
+                                                            print_flag++;
+                                                        }
                                                         Log.e("Ariful7","Go to print");
 
                                                     }catch (Exception e) {

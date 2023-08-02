@@ -242,6 +242,7 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
 
 
         ////speed density detect
+/*
 
         firebaseFirestore.collection("DensityAndSpeed")
                 .document("abc@gmail.com")
@@ -272,6 +273,7 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
                     }
                 });
 
+ */
 
         ///////
         RelativeLayout relagoo=findViewById(R.id.relagoo);
@@ -664,7 +666,9 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
                                                             Store_Speed();
                                                             print_flag++;
                                                         }
-                                                        else{}
+                                                        else{
+                                                            print_flag++;
+                                                        }
                                                         Log.e("Ariful7","Go to print");
 
                                                     }catch (Exception e) {
@@ -711,7 +715,7 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
     private void printImage2(String bl) {
         //  final Bitmap bitmap = bitmapdataMe;
 
-        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.death);
+        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dolphin);
         float scax=384f /bitmap.getWidth();
         float scaly=120f / bitmap.getHeight();
         Log.e("dolon",""+bitmap);
@@ -899,7 +903,9 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
                                                             Store_Speed();
                                                             print_flag++;
                                                         }
-                                                        else{}
+                                                        else{
+                                                            Store_Speed();
+                                                        }
                                                         Log.e("Ariful7","Go to print");
 
                                                     }catch (Exception e) {
