@@ -1,5 +1,6 @@
 package com.messas.blueprintsdk;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -11,6 +12,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,11 +21,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +49,20 @@ public class Findlocation extends AppCompatActivity {
     private ListView listView;
     private BroadcastReceiver discoveryReceiver;
     BluetoothDevice device;
+
+    private Animation topAnimation, bottomAnimation, startAnimation, endAnimation;
+    private SharedPreferences onBoardingPreference;
+    FirebaseFirestore firebaseFirestore;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_findlocation);
+        firebaseFirestore=FirebaseFirestore.getInstance();
 
+
+        endAnimation = AnimationUtils.loadAnimation(Findlocation.this, R.anim.splash_end_animation);
 
 
 
@@ -104,10 +123,28 @@ public class Findlocation extends AppCompatActivity {
                if(itemCount==0)
                {
                    mDialouge.dismiss();
+                   final BottomSheetDialog bottomSheetDialog11 = new BottomSheetDialog(Findlocation.this);
+                   bottomSheetDialog11.setContentView(R.layout.hostandcohostlist);
+                   ImageView closedialouge=(ImageView)bottomSheetDialog11.findViewById(R.id.closedialouge);
+                   closedialouge.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           bottomSheetDialog11.dismiss();
+                       }
+                   });
+                   TextView searchagain = (TextView)bottomSheetDialog11.findViewById(R.id.searchagain);
+                   searchagain.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+                           startActivity(new Intent(getApplicationContext(),Findlocation.class));
+                       }
+                   });
+                   bottomSheetDialog11.show();
                    Toasty.error(getApplicationContext(),itemCount+" devices found on your location.",Toasty.LENGTH_SHORT,true).show();
                }
                else{
                    mDialouge.dismiss();
+
                    listView.setVisibility(View.VISIBLE);
                    Toasty.success(getApplicationContext(),itemCount+" devices found on your location.",Toasty.LENGTH_SHORT,true).show();
                }
@@ -147,6 +184,9 @@ public class Findlocation extends AppCompatActivity {
 
     private static class BluetoothDeviceAdapter extends ArrayAdapter<BluetoothDevice> {
         private LayoutInflater inflater;
+        private Animation topAnimation, bottomAnimation, startAnimation, endAnimation;
+        private SharedPreferences onBoardingPreference;
+        FirebaseFirestore firebaseFirestore;
 
         public BluetoothDeviceAdapter(Context context, List<BluetoothDevice> devices) {
             super(context, 0, devices);
@@ -167,6 +207,11 @@ public class Findlocation extends AppCompatActivity {
             deviceNameTextView.setText(device.getName()+"\n"+device.getAddress());
 
             RelativeLayout carditem=view.findViewById(R.id.carditem);
+            endAnimation = AnimationUtils.loadAnimation(view.getContext(), R.anim.splash_end_animation);
+            if (convertView == null) {
+                carditem.startAnimation(endAnimation);
+            }
+            firebaseFirestore=FirebaseFirestore.getInstance();
 
 
 
@@ -176,6 +221,22 @@ public class Findlocation extends AppCompatActivity {
                 public void onClick(View v) {
                     Toast.makeText(v.getContext(), device.getName()+"\n"+device.getAddress(), Toast.LENGTH_SHORT).show();
                     String BlueMac = "FB:7F:9B:F2:20:B7";
+                    String bluename = device.getName();
+                    String bluemac= device.getAddress();
+                    Connected_Model connected_model=new Connected_Model(bluename,bluemac,"abc@gmail.com");
+                    firebaseFirestore.collection("Connected_Device")
+                            .document("abc@gmail.com")
+                            .set(connected_model)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful())
+                                    {
+                                        v.getContext().startActivity(new Intent(v.getContext(),SecondActivity.class));
+                                    }
+                                }
+                            });
+
 
 
                 }

@@ -576,6 +576,44 @@
                     </RelativeLayout>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    //mac
+
+                    <TextView
+                        android:id="@+id/macaddress"
+
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/black"
+
+                        android:textSize="15dp"></TextView>
+
+                    <TextView
+                        android:visibility="gone"
+                        android:id="@+id/bluename111"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="@color/black"
+
+                        android:textSize="15dp"></TextView>
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

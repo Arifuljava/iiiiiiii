@@ -2,27 +2,21 @@ package com.messas.blueprintsdk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.Manifest;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -34,10 +28,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -51,15 +43,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
 import es.dmoral.toasty.Toasty;
 
-public class TwoInchPrinterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SecondActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView quantityProductPage,quantityProductPage_speed;
     SeekBar seekBar;
     TextView progressbarsechk;
@@ -89,12 +79,13 @@ public class TwoInchPrinterActivity extends AppCompatActivity implements Adapter
 
 
 
-TextView macaddress, bluename111;
-RelativeLayout printcommand;
+    TextView macaddress, bluename111;
+    RelativeLayout printcommand;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity2);
+        setContentView(R.layout.activity_second);
         macaddress=findViewById(R.id.macaddress);
         bluename111=findViewById(R.id.bluename111);
         printcommand=findViewById(R.id.printcommand);
@@ -179,20 +170,20 @@ RelativeLayout printcommand;
                         {
                             if (task.getResult().exists())
                             {
-                               try {
+                                try {
 
-                                //   Toast.makeText(TwoInchPrinterActivity.this, ""+task.getResult().getString("name"), Toast.LENGTH_SHORT).show();
-                                   bluename111.setText(task.getResult().getString("name"));
-                                   macaddress.setText(task.getResult().getString("mac"));
-                                   connectedornot.setText("Connected");
-                                   connectedornot.setTextColor(Color.parseColor("#006400"));
-                                   Drawable icon = getResources().getDrawable(R.drawable.ic_connected);
-                                   connectedornot.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+                                    //   Toast.makeText(TwoInchPrinterActivity.this, ""+task.getResult().getString("name"), Toast.LENGTH_SHORT).show();
+                                    bluename111.setText(task.getResult().getString("name"));
+                                    macaddress.setText(task.getResult().getString("mac"));
+                                    connectedornot.setText("Connected");
+                                    connectedornot.setTextColor(Color.parseColor("#006400"));
+                                    Drawable icon = getResources().getDrawable(R.drawable.ic_connected);
+                                    connectedornot.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
 
-                               }catch (Exception e)
-                               {
-                                   Toast.makeText(TwoInchPrinterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                               }
+                                }catch (Exception e)
+                                {
+                                    Toast.makeText(SecondActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
 
                             }
                             else{
@@ -226,7 +217,7 @@ RelativeLayout printcommand;
         closedialouge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finishAffinity();
             }
         });
         progressbarsechk=findViewById(R.id.progressbarsechk);
@@ -288,7 +279,7 @@ RelativeLayout printcommand;
             @Override
             public void onClick(View v) {
 
-         startActivity(new Intent(getApplicationContext(),Findlocation.class));
+                startActivity(new Intent(getApplicationContext(),Findlocation.class));
             }
         });
 
@@ -325,7 +316,7 @@ RelativeLayout printcommand;
                 ///Toasty.info(getApplicationContext(),"Please active bluetooth"+mBluetoothAdapter.isEnabled(),Toasty.LENGTH_SHORT,true).show();
                 if (!mBluetoothAdapter.isEnabled()) {
                     Toasty.info(getApplicationContext(), "Please active bluetooth", Toasty.LENGTH_SHORT, true).show();
-                    android.app.AlertDialog.Builder mybuilder = new android.app.AlertDialog.Builder(TwoInchPrinterActivity.this);
+                    android.app.AlertDialog.Builder mybuilder = new android.app.AlertDialog.Builder(SecondActivity.this);
                     mybuilder.setTitle("Confirmation")
                             .setMessage("Do you want to active bluetooth");
                     mybuilder.setPositiveButton("Not Now", new DialogInterface.OnClickListener() {
@@ -337,7 +328,7 @@ RelativeLayout printcommand;
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            if (ActivityCompat.checkSelfPermission(TwoInchPrinterActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                            if (ActivityCompat.checkSelfPermission(SecondActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                                 mBluetoothAdapter.enable();
                                 Toasty.info(getApplicationContext(), "Bluetooth is active now.", Toasty.LENGTH_SHORT, true).show();
                             } else {
@@ -358,7 +349,7 @@ RelativeLayout printcommand;
                     else if (selectcategory.toString().toLowerCase().toString().equals("esc")){
                         Toasty.info(getApplicationContext(),"Bluetooth Device : "+bluename111.getText().toString()+"\n" +
                                 "Mac Address : "+BlueMac,Toasty.LENGTH_SHORT,true).show();
-                      printImage2(BlueMac);
+                        printImage2(BlueMac);
                     }
 
                 }
@@ -370,7 +361,7 @@ RelativeLayout printcommand;
         int value = Integer.parseInt(quantityProductPage.getText().toString());
         if (value==1) {
             Toasty.info(getApplicationContext(),"It is the lowest value.Print Copy value is not decrement now.", Toast.LENGTH_SHORT,true).show();
-          //  Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         }
         else{
             value=value-1;
@@ -425,7 +416,7 @@ RelativeLayout printcommand;
         int value = Integer.parseInt(quantityProductPage_speed.getText().toString());
         if (value==6) {
             Toasty.warning(getApplicationContext(),"It is the highest value. Print Speed value is not increment now.", Toast.LENGTH_SHORT,true).show();
-         //   Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
         }
         else{
             value=value+1;
@@ -584,7 +575,7 @@ RelativeLayout printcommand;
             public void run() {
                 try {
                     /// Toast.makeText(AssenTaskDounwActivity.this, "Done", Toast.LENGTH_SHORT).show();
-                    if (ActivityCompat.checkSelfPermission(TwoInchPrinterActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(SecondActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                         m5ocket.connect();
 
@@ -722,7 +713,7 @@ RelativeLayout printcommand;
 
         final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.death);
         float scax=384f /bitmap.getWidth();
-        float scaly=384f / bitmap.getHeight();
+        float scaly=120f / bitmap.getHeight();
         Log.e("dolon",""+bitmap);
         Log.e("zzz",""+bitmap.getWidth());
         Log.e("zzz",""+bitmap.getHeight());
@@ -745,7 +736,7 @@ RelativeLayout printcommand;
             public void run() {
                 try {
                     /// Toast.makeText(AssenTaskDounwActivity.this, "Done", Toast.LENGTH_SHORT).show();
-                    if (ActivityCompat.checkSelfPermission(TwoInchPrinterActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(SecondActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                         m5ocket.connect();
 
@@ -1071,10 +1062,10 @@ RelativeLayout printcommand;
     int bitmapWidth=384;
     public  void Store_Speed()
     {
-String density = progressbarsechk.getText().toString();
-String speed = quantityProductPage_speed.getText().toString();
-String email = "abc@gmail.com";
-DensityModel densityModel=new DensityModel(speed,density,email);
+        String density = progressbarsechk.getText().toString();
+        String speed = quantityProductPage_speed.getText().toString();
+        String email = "abc@gmail.com";
+        DensityModel densityModel=new DensityModel(speed,density,email);
 
         firebaseFirestore.collection("DensityAndSpeed")
                 .document("abc@gmail.com")

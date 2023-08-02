@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/download"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_close"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/closedialouge"
+                    ></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:text="Scan Result"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:textColor="#1167b1"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+
+                    android:layout_alignParentLeft="true"
+
+                    ></TextView>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:foregroundTint="@color/white"
+                    android:layout_width="100dp"
+                    android:id="@+id/deviceanimation"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentRight="false"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="false"
+                    app:lottie_fileName="zero.json"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_below="@id/deviceanimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="false"
+
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="12dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+
+                    android:text="No Printer Device Found"
+                    android:id="@+id/web_print"
+                    android:gravity="center_horizontal" />
+                <TextView
+                    android:layout_below="@id/web_print"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="false"
+
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="10dp"
+                    android:maxLines="500"
+                    android:inputType="textMultiLine"
+                    android:textAlignment="center"
+                    android:textColor="#808080"
+
+                    android:text="Please make sure the printer is in the following status."
+                    android:id="@+id/web_print2"
+                    android:gravity="center_horizontal" />
+                <LinearLayout
+                    android:layout_below="@id/web_print2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    >
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            >
+                            //step 1
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="vertical"
+                                android:background="@drawable/bcorder"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp"
+                                >
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <ImageView
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="10dp"
+                                        android:src="@drawable/on"
+                                        android:layout_centerHorizontal="false"
+                                        android:foregroundGravity="center_vertical"
+                                        android:layout_width="40dp"
+                                        android:id="@+id/imageee"
+                                        android:layout_height="40dp"
+                                        ></ImageView>
+                                    <TextView
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignRight="@id/imageee"
+
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_centerInParent="false"
+
+                                        android:layout_marginRight="10dp"
+
+                                        android:layout_marginLeft="60dp"
+                                        android:layout_marginTop="5dp"
+                                        android:textSize="12dp"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+
+                                        android:text="Make sure the printer is turned on (long press the power button)"
+                                        android:id="@+id/web_print1"
+                                        android:gravity="center_horizontal" />
+                                    <TextView
+                                        android:layout_below="@id/web_print1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_centerInParent="false"
+
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginLeft="60dp"
+                                        android:textSize="10dp"
+                                        android:maxLines="500"
+                                        android:inputType="textMultiLine"
+                                        android:textAlignment="center"
+                                        android:textColor="#808080"
+
+                                        android:text="Please rule out the situation that the lightis on when the printer is charging but notturned on"
+                                        android:id="@+id/web_print2"
+                                        android:gravity="center_horizontal" />
+                                </RelativeLayout>
+
+                            </LinearLayout>
+                            //2
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="vertical"
+                                android:background="@drawable/bcorder"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp"
+                                >
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <ImageView
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="10dp"
+                                        android:src="@drawable/order"
+                                        android:layout_centerHorizontal="false"
+                                        android:foregroundGravity="center_vertical"
+                                        android:layout_width="40dp"
+                                        android:id="@+id/imageee"
+                                        android:layout_height="40dp"
+                                        ></ImageView>
+                                    <TextView
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignRight="@id/imageee"
+
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_centerInParent="false"
+
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginLeft="60dp"
+                                        android:layout_marginTop="5dp"
+                                        android:textSize="12dp"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+
+                                        android:text="Make sure that the printer
+connection App does not reach the upper limit"
+                                        android:id="@+id/web_print1"
+                                        android:gravity="center_horizontal" />
+                                    <TextView
+                                        android:layout_below="@id/web_print1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_centerInParent="false"
+
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginLeft="60dp"
+                                        android:textSize="10dp"
+                                        android:maxLines="500"
+                                        android:inputType="textMultiLine"
+                                        android:textAlignment="center"
+                                        android:textColor="#808080"
+
+                                        android:text="lf you have connected to another Appplease disconnect first."
+                                        android:id="@+id/web_print2"
+                                        android:gravity="center_horizontal" />
+                                </RelativeLayout>
+
+                            </LinearLayout>
+                            ////3
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="vertical"
+                                android:background="@drawable/bcorder"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp"
+                                >
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <ImageView
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="10dp"
+                                        android:src="@drawable/mobilephone"
+                                        android:layout_centerHorizontal="false"
+                                        android:foregroundGravity="center_vertical"
+                                        android:layout_width="40dp"
+                                        android:id="@+id/imageee"
+                                        android:layout_height="40dp"
+                                        ></ImageView>
+                                    <TextView
+                                        android:layout_alignParentRight="true"
+                                        android:layout_alignRight="@id/imageee"
+
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_centerInParent="false"
+
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginLeft="60dp"
+                                        android:layout_marginTop="5dp"
+                                        android:textSize="12dp"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+
+                                        android:text="Make sure the printer is near the phone"
+                                        android:id="@+id/web_print1"
+                                        android:gravity="center_horizontal" />
+                                    <TextView
+                                        android:layout_below="@id/web_print1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentLeft="true"
+                                        android:layout_centerInParent="false"
+
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginLeft="60dp"
+                                        android:textSize="10dp"
+                                        android:maxLines="500"
+                                        android:inputType="textMultiLine"
+                                        android:textAlignment="center"
+                                        android:textColor="#808080"
+
+                                        android:text="Best within 30CM"
+                                        android:id="@+id/web_print2"
+                                        android:gravity="center_horizontal" />
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            //4
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:orientation="vertical"
+
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="22dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp"
+                                >
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:minWidth="150dp"
+    android:textAlignment="center"
+    android:textColor="@color/white"
+    android:textSize="12dp"
+    android:gravity="center_vertical"
+    android:textAllCaps="false"
+    android:layout_centerHorizontal="true"
+    android:text="Search Again."
+    android:background="@drawable/mibutton"
+    android:layout_marginTop="10dp"
+    android:id="@+id/searchagain"
+
+    ></TextView>
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

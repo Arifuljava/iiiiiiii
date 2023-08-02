@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+<color name="bluenil">#006400</color>
     ///colorlight
     <color name="green">#00c853</color>
     <color name="colorPrimary">#039BE6</color>
