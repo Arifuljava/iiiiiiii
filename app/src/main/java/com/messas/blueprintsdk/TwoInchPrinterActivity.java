@@ -222,6 +222,7 @@ RelativeLayout printcommand;
         progressbarsechk=findViewById(R.id.progressbarsechk);
         connectedornot=findViewById(R.id.connectedornot);
         seekBar=findViewById(R.id.seekBar);
+        seekBar.setProgress(14);
         ImageView closedialouge=findViewById(R.id.closedialouge);
         closedialouge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +231,7 @@ RelativeLayout printcommand;
             }
         });
         progressbarsechk=findViewById(R.id.progressbarsechk);
+        progressbarsechk.setText("14");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,
@@ -358,6 +360,7 @@ RelativeLayout printcommand;
                         printImage1(BlueMac);
                     }
                     else if (selectcategory.toString().toLowerCase().toString().equals("esc")){
+
                         Toasty.info(getApplicationContext(),"Bluetooth Device : "+bluename111.getText().toString()+"\n" +
                                 "Mac Address : "+BlueMac,Toasty.LENGTH_SHORT,true).show();
                       printImage2(BlueMac);
@@ -557,6 +560,7 @@ RelativeLayout printcommand;
     }
     int bitmapHeight = 1080;
     OutputStream os = null;
+
     private void printImage1(String bl) {
         //  final Bitmap bitmap = bitmapdataMe;
         String speed = quantityProductPage_speed.getText().toString();
@@ -593,24 +597,25 @@ RelativeLayout printcommand;
                         m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
                         m5ocket.connect();
 
-                        os = m5ocket.getOutputStream();
 
-                        if(resize.getHeight()>bitmapHeight)
-                        {
-                            bitmapHeight=1080;
-                        }
-                        else
-                        {
-                            bitmapHeight=resize.getHeight();
-                        }
-                        Log.e("Ariful1",""+resize.getWidth());
-                        Log.e("Ariful2",""+resize.getHeight());
-                        Log.e("Ariful3",""+bitmap);
-                        Random random=new Random();
-                        int sendingnumber=random.nextInt(10);
-                        int mimisecond=sendingnumber*1000;
 
                         for (int i=1;i<=Integer.parseInt(quantityProductPage.getText().toString());i++){
+                            os = m5ocket.getOutputStream();
+
+                            if(resize.getHeight()>bitmapHeight)
+                            {
+                                bitmapHeight=1080;
+                            }
+                            else
+                            {
+                                bitmapHeight=resize.getHeight();
+                            }
+                            Log.e("Ariful1",""+resize.getWidth());
+                            Log.e("Ariful2",""+resize.getHeight());
+                            Log.e("Ariful3",""+bitmap);
+                            Random random=new Random();
+                            int sendingnumber=random.nextInt(10);
+                            int mimisecond=sendingnumber*1000;
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -722,8 +727,10 @@ RelativeLayout printcommand;
         });
         thread.start();
     }
+
     //for esc
 
+boolean isConnected = false;
     private void printImage2(String bl) {
         //  final Bitmap bitmap = bitmapdataMe;
 
@@ -746,6 +753,8 @@ RelativeLayout printcommand;
         mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
         final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(BlueMac);
+        int n = Integer.parseInt(quantityProductPage.getText().toString())+1;
+
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -753,30 +762,38 @@ RelativeLayout printcommand;
                 try {
                     /// Toast.makeText(AssenTaskDounwActivity.this, "Done", Toast.LENGTH_SHORT).show();
                     if (ActivityCompat.checkSelfPermission(TwoInchPrinterActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                        m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-                        m5ocket.connect();
-
-                        os = m5ocket.getOutputStream();
-
-                        if(resize.getHeight()>bitmapHeight)
+                       if (isConnected==false)
+                       {
+                           m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                           m5ocket.connect();
+                           isConnected= true;
+                       }
+                       else{
+                           m5ocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+                           m5ocket.connect();
+                           isConnected= true;
+                       }
+                        for(int i = 1; i<=n;i++)
                         {
-                            bitmapHeight=1080;
-                        }
-                        else
-                        {
-                            bitmapHeight=resize.getHeight();
-                        }
-                        bitmapWidth=resize.getWidth();
-                        Log.e("Ariful1",""+resize.getWidth());
-                        Log.e("Ariful2",""+resize.getHeight());
-                        Log.e("Ariful3",""+bitmap);
-                        Random random=new Random();
-                        int sendingnumber=random.nextInt(10);
-                        int mimisecond=sendingnumber*1000;
+                            os = m5ocket.getOutputStream();
+
+                            if(resize.getHeight()>bitmapHeight)
+                            {
+                                bitmapHeight=1080;
+                            }
+                            else
+                            {
+                                bitmapHeight=resize.getHeight();
+                            }
+                            bitmapWidth=resize.getWidth();
+                            Log.e("Ariful1",""+resize.getWidth());
+                            Log.e("Ariful2",""+resize.getHeight());
+                            Log.e("Ariful3",""+bitmap);
+                            Random random=new Random();
+                            int sendingnumber=random.nextInt(10);
+                            int mimisecond=sendingnumber*1000;
 
 
-
-                        for (int i=1;i<=Integer.parseInt(quantityProductPage.getText().toString());i++){
                             new Handler(Looper.getMainLooper()).post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -937,7 +954,12 @@ RelativeLayout printcommand;
                                     countDownTimer.start();
                                 }
                             });
+                            // thread
+
                         }
+
+
+
 
                     }
                     else {
