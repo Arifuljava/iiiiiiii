@@ -88,13 +88,23 @@ public class TwoInchPrinterActivity extends AppCompatActivity implements Adapter
     int flag1  = 0;
 
 
-
+    String bluetoothName;
 TextView macaddress, bluename111;
 RelativeLayout printcommand;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter != null) {
+             bluetoothName = bluetoothAdapter.getName();
+
+
+            // Use the Bluetooth name as needed
+        } else {
+            // Bluetooth is not supported on this device
+            bluetoothName= "unknown";
+        }
         macaddress=findViewById(R.id.macaddress);
         bluename111=findViewById(R.id.bluename111);
         printcommand=findViewById(R.id.printcommand);
@@ -170,7 +180,7 @@ RelativeLayout printcommand;
         //check connected or not and get mac address
         firebaseFirestore= FirebaseFirestore.getInstance();
         firebaseFirestore.collection("Connected_Device")
-                .document("abc@gmail.com")
+                .document(""+bluetoothName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

@@ -85,9 +85,12 @@ public class Findlocation extends AppCompatActivity {
                 String action = intent.getAction();
 
                 if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+
                      device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                    deviceAdapter.add(device);
-                    deviceAdapter.notifyDataSetChanged();
+                    if (device.getName() != null && device.getAddress()!=null) {
+                        deviceAdapter.add(device);
+                        deviceAdapter.notifyDataSetChanged();
+                    }
                 }
             }
         };
@@ -187,10 +190,12 @@ public class Findlocation extends AppCompatActivity {
         private Animation topAnimation, bottomAnimation, startAnimation, endAnimation;
         private SharedPreferences onBoardingPreference;
         FirebaseFirestore firebaseFirestore;
-
+        private List<String> addedMacAddresses;
+        String bluetoothName;
         public BluetoothDeviceAdapter(Context context, List<BluetoothDevice> devices) {
             super(context, 0, devices);
             inflater = LayoutInflater.from(context);
+            addedMacAddresses = new ArrayList<>();
         }
 
         @Override
@@ -198,19 +203,32 @@ public class Findlocation extends AppCompatActivity {
             View view = convertView;
             if (view == null) {
                 view = inflater.inflate(R.layout.show2, parent, false);
+
+
+            }
+            BluetoothDevice device = getItem(position);
+            String deviceAddress = device.getAddress();
+
+            // Check if the device's MAC address is already added to the list
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (bluetoothAdapter != null) {
+                bluetoothName = bluetoothAdapter.getName();
+
+
+                // Use the Bluetooth name as needed
+            } else {
+                // Bluetooth is not supported on this device
+                bluetoothName= "unknown";
             }
 
-            BluetoothDevice device = getItem(position);
+
             TextView deviceNameTextView = view.findViewById(R.id.listedd);
 
 
             deviceNameTextView.setText(device.getName()+"\n"+device.getAddress());
 
             RelativeLayout carditem=view.findViewById(R.id.carditem);
-            endAnimation = AnimationUtils.loadAnimation(view.getContext(), R.anim.splash_end_animation);
-            if (convertView == null) {
-                carditem.startAnimation(endAnimation);
-            }
+
             firebaseFirestore=FirebaseFirestore.getInstance();
 
 
@@ -223,9 +241,9 @@ public class Findlocation extends AppCompatActivity {
                     String BlueMac = "FB:7F:9B:F2:20:B7";
                     String bluename = device.getName();
                     String bluemac= device.getAddress();
-                    Connected_Model connected_model=new Connected_Model(bluename,bluemac,"abc@gmail.com");
+                    Connected_Model connected_model=new Connected_Model(bluename,bluemac,""+bluetoothName);
                     firebaseFirestore.collection("Connected_Device")
-                            .document("abc@gmail.com")
+                            .document(""+bluetoothName)
                             .set(connected_model)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

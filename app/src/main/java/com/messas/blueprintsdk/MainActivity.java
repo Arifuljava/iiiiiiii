@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.multidex.MultiDex;
 
 import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.system.Os;
 import android.view.Window;
 import android.widget.TextView;
@@ -27,7 +29,8 @@ TextView mity;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mity=findViewById(R.id.mity);
-    startActivity(new Intent(getApplicationContext(),TwoInchPrinterActivity.class));
+        String deviceId = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        startActivity(new Intent(getApplicationContext(),TwoInchPrinterActivity.class));
        /*
         PackageManager pm = MainActivity.this.getPackageManager();
         if (pm.hasSystemFeature(PackageManager.FEATURE_PC))

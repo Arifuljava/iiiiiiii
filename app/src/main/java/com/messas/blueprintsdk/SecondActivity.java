@@ -81,7 +81,7 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
 
     TextView macaddress, bluename111;
     RelativeLayout printcommand;
-
+String bluetoothName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +90,16 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
         bluename111=findViewById(R.id.bluename111);
         printcommand=findViewById(R.id.printcommand);
 
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter != null) {
+            bluetoothName = bluetoothAdapter.getName();
 
+
+            // Use the Bluetooth name as needed
+        } else {
+            // Bluetooth is not supported on this device
+            bluetoothName= "unknown";
+        }
         //get from intent
         try {
             Intent intent=getIntent();
@@ -161,7 +170,7 @@ public class SecondActivity extends AppCompatActivity implements AdapterView.OnI
         //check connected or not and get mac address
         firebaseFirestore= FirebaseFirestore.getInstance();
         firebaseFirestore.collection("Connected_Device")
-                .document("abc@gmail.com")
+                .document(""+bluetoothName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
